@@ -263,7 +263,6 @@ static	DataModel* _instance = NULL;
         [self showError:error];
     }
     
-    NSLog(@"retain count: %i", [(NSNumber*)userData retainCount]);
     NSNumber* shotID = (NSNumber*)userData;
     // remove previous comments on this shot
     Shot* shot = [self getShot:shotID];

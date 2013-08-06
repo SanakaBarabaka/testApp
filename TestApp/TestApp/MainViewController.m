@@ -37,6 +37,7 @@
                                 nil];
         
         [favoritesVC release];
+        [favoritesNavVC release];
         [shotsVC release];
         [shotsNavVC release];
         [settingVC release];

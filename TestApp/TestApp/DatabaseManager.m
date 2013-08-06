@@ -82,6 +82,7 @@ static	DatabaseManager* _instance = NULL;
     // сделаем запрос
     NSError *error = nil;
     NSArray* usersFound = [dbContext executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
     // успех?
     if (usersFound.count >= 1)
     {
@@ -152,6 +153,11 @@ static	DatabaseManager* _instance = NULL;
     
     NSError *error = nil;
     NSArray* shots = [dbContext executeFetchRequest:fetchRequest error:&error];
+    
+    [sortDescriptor release];
+    [sortDescriptors release];
+    [fetchRequest release];
+    
     NSMutableArray* shotsIDs = [[NSMutableArray alloc] initWithCapacity:shots.count];
     for (Shot* shot in shots)
     {
@@ -178,6 +184,7 @@ static	DatabaseManager* _instance = NULL;
     // сделаем запрос
     NSError *error = nil;
     NSArray* shotsFound = [dbContext executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
     // успех?
     if (shotsFound.count >= 1)
         return [shotsFound objectAtIndex:0];
@@ -201,6 +208,7 @@ static	DatabaseManager* _instance = NULL;
     
     NSError *error = nil;
     NSArray* shotsFound = [dbContext executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
     if (error == nil && shotsFound.count >= 1)
     {
         Shot* shot = [shotsFound objectAtIndex:0];
@@ -234,6 +242,7 @@ static	DatabaseManager* _instance = NULL;
     
     NSError *error = nil;
     NSArray* shotsFound = [dbContext executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
     if (error == nil && shotsFound.count >= 1)
     {
         Shot* shot = [shotsFound objectAtIndex:0];
@@ -269,6 +278,7 @@ static	DatabaseManager* _instance = NULL;
     
     NSError *error = nil;
     NSArray* shotsFound = [dbContext executeFetchRequest:fetchRequest error:&error];
+    [fetchRequest release];
     if (error == nil)
     {
         if (shotsFound.count >= 1)
@@ -333,6 +343,11 @@ static	DatabaseManager* _instance = NULL;
     
     NSError *error = nil;
     NSArray* comments = [dbContext executeFetchRequest:fetchRequest error:&error];
+    
+    [sortDescriptor release];
+    [sortDescriptors release];
+    [fetchRequest release];
+    
     return comments;
 }
 

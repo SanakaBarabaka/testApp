@@ -187,7 +187,7 @@
     static NSString* cellReuseIdentifier = @"CommentsCell";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier];
     if (cell == nil)
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellReuseIdentifier];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellReuseIdentifier] autorelease];
         
     // настраиваем ячейку
     Comment* comment = [comments objectAtIndex:indexPath.row];
@@ -239,6 +239,7 @@
         [[DataModel sharedDataModel] removeComment:comment fromShotWithID:shotID];
         
         [comments removeObjectAtIndex:indexPath.row];
+        [commentsTable reloadData];
     }
 }
 

@@ -139,7 +139,6 @@ static DribbleServerManager*	_instance = NULL;
         if (task->userData != nil)
             [myInvocation setArgument:&(task->userData) atIndex:4];
         
-        [myInvocation retainArguments];
         [myInvocation invoke];
     }
 }

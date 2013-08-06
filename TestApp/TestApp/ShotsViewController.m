@@ -128,7 +128,7 @@
     if (favoritesOnlyMode)
     {
         // картинку в таббар
-        self.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:1];
+        self.tabBarItem = [[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:1] autorelease];
         self.navigationItem.title = @"Favorites";
         
         self.navigationItem.rightBarButtonItem = nil;
