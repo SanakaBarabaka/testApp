@@ -2,7 +2,7 @@
 //  Comment.h
 //  TestApp
 //
-//  Created by Александр Кириченко on 05.08.13.
+//  Created by Александр Кириченко on 06.08.13.
 //
 //
 
@@ -14,6 +14,7 @@
 @interface Comment : NSManagedObject
 
 @property (nonatomic, retain) NSString * text;
+@property (nonatomic, retain) NSDate * date;
 @property (nonatomic, retain) Shot *shot;
 
 @end

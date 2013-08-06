@@ -3,7 +3,18 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[DownloadsManager connection:didFailWithError:]:DownloadsManager.m">
+      </ContextState>
+      <ContextState
          contextName = "-[LogInViewController onLogInButton:]:LogInViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[DataModel dribbleServerGetShotsResponse:error:]:DataModel.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[shotData objectForKey:@&quot;created_at&quot;]">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[LogInViewController onTextFieldValueChanged:]:LogInViewController.m">

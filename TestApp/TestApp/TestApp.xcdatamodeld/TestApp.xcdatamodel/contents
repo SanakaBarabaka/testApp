@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Comment" representedClassName="Comment" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="shot" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Shot" inverseName="comments" inverseEntity="Shot" syncable="YES"/>
     </entity>
     <entity name="Shot" representedClassName="Shot" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dribble_id" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="favorite" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="image_url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="shot" inverseEntity="Comment" syncable="YES"/>
         <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="shots" inverseEntity="User" syncable="YES"/>
     </entity>
@@ -16,8 +21,8 @@
         <relationship name="shots" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Shot" inverseName="user" inverseEntity="Shot" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Comment" positionX="43" positionY="-85" width="128" height="88"/>
+        <element name="Shot" positionX="-236" positionY="-252" width="128" height="163"/>
         <element name="User" positionX="-432" positionY="-360" width="128" height="88"/>
-        <element name="Shot" positionX="-236" positionY="-252" width="128" height="103"/>
-        <element name="Comment" positionX="43" positionY="-85" width="128" height="73"/>
     </elements>
 </model>

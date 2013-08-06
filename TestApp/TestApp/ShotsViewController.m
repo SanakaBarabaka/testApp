@@ -7,53 +7,55 @@
 //
 
 #import "ShotsViewController.h"
+#import "DataModel.h"
+#import "ShotsCell.h"
+#import "Shot.h"
 #import "DatabaseManager.h"
-#import "User.h"
+#import "CommentsViewController.h"
 
 
-
-//TODO: tasks
-/*
- 
- Shots - содержит все шоты,  
- 
- - На скрине Shots должен быть реализован поиск по шотам.
- 
- 
- - В случае если шотов нет мы должны видеть надпись No shots available (аналогично
- 
- для скрина shots).
- 
- - Добавление шотов должно происходить со скрина Shots по нажатию на звездочку.
- 
- - На скрине Settings после logOut мы должны попадать на скрин с авторизацией.
- 
- - По нажатию на какой либо шот мы должны переходить на скрин с коментариями
- 
- этого шота. Коментарии могут удаляться локально.
- 
- */
-
-
-
-@interface ShotsViewController ()
+@interface ShotsViewController () <ShotsCellDelegate>
 {
+    // сингдетон
+    DataModel*	sharedDataModel;
+    
+    // 
     bool	updateNeeded;
+    // количество картинок
+    NSMutableArray*	shotsList;
+    
+    // заготовка, из который мы будем создавать нуши кастомные ячейки для таблицы
+    UINib*	customCellNib;
+    
+    bool	shown;
+    
+    UIBarButtonItem* refreshButton;
 }
 
 - (void)updateShots;
+- (void)onRefreshButton:(id)sender;
+- (void)onImageDownloaded:(NSNotification*)notification;
+- (void)onShotsUpdated:(NSNotification*)notification;
+- (void)onUserChanged:(NSNotification*)notification;
 
 @end
 
 
 @implementation ShotsViewController
 
+@synthesize favoritesOnlyMode;
+@synthesize cellEtalon;
 
 #pragma mark ----- Initialization -----
 
 
 - (void)dealloc
 {
+    [searchBar release];
+    [customCellNib release];
+    [refreshButton release];
+    [shotsList release];
+    [shotsTable release];
     [noShotsLabel release];
     [super dealloc];
 }
@@ -64,9 +66,15 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
+        //--defaults--
+        favoritesOnlyMode = false;
+        shotsList = nil;
+        shown = true;
+        
         // картинку в таббар
         self.tabBarItem.image = [UIImage imageNamed:@"box"];
         self.tabBarItem.title = @"Shots";
+        self.navigationItem.title = @"Shots";
     }
     return self;
 }
@@ -76,6 +84,65 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    sharedDataModel = [DataModel sharedDataModel];
+    
+    // добавим кнопку обновить
+    refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                                                  target:self
+                                                                  action:@selector(onRefreshButton:)];
+    if (!favoritesOnlyMode)
+        self.navigationItem.rightBarButtonItem = refreshButton;
+    
+    // подгрузим ячейку
+    customCellNib = [[UINib nibWithNibName:@"ShotsCellView" bundle:nil] retain];
+    
+    // покажем надпись
+    noShotsLabel.hidden = false;
+    updateNeeded = true;
+    shotsTable.hidden = true;
+    
+    // подпишемся на сообщение об обновлении списка картинок
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onShotsUpdated:)
+                                                 name:NOTIFICATION_DM_ShotsUpdated
+                                               object:nil];
+    // и на "картинка скачалась"
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onImageDownloaded:)
+                                                 name:NOTIFICATION_DM_ImageDownloaded
+                                               object:nil];
+    // пользователь изменился
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onUserChanged:)
+                                                 name:NOTIFICATION_DBM_UserLoggedIn
+                                               object:nil];
+}
+
+
+- (void)setFavoritesOnlyMode:(bool)aFavoritesOnlyMode
+{
+    if (favoritesOnlyMode == aFavoritesOnlyMode)
+        return;
+    favoritesOnlyMode = aFavoritesOnlyMode;
+    if (favoritesOnlyMode)
+    {
+        // картинку в таббар
+        self.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:1];
+        self.navigationItem.title = @"Favorites";
+        
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+    else
+    {
+        // картинку в таббар
+        self.tabBarItem.image = [UIImage imageNamed:@"box"];
+        self.tabBarItem.title = @"Shots";
+        self.navigationItem.title = @"Shots";
+        
+        self.navigationItem.rightBarButtonItem = refreshButton;
+    }
+    updateNeeded = true;
 }
 
 
@@ -84,9 +151,19 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    shown = true;
     // обновим данные, если нужно
     if (updateNeeded)
         [self updateShots];
+    
+    [super viewWillAppear:animated];
+}
+
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    shown = false;
+    [super viewDidDisappear:animated];
 }
 
 
@@ -95,9 +172,36 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
     
-    //TODO: dispose of images
-    
-    updateNeeded = true;
+    // dispose of images
+    [[DataModel sharedDataModel] clearCache];
+}
+
+
+- (void)onImageDownloaded:(NSNotification*)notification
+{
+    // если это наша картинка, то обновим ячейку с этой картинкой
+    NSNumber* shotID = notification.object;
+    int cellIndex = [shotsList indexOfObject:shotID];
+    if (cellIndex >= 0 && shotsList != nil)
+    {
+        [shotsTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:cellIndex inSection:0]]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
+
+
+- (void)onShotsUpdated:(NSNotification *)notification
+{
+    if (shown)
+        [self updateShots];
+    else
+        updateNeeded = true;
+}
+
+
+- (void)onUserChanged:(NSNotification*)notification
+{
+    [self onShotsUpdated:notification];
 }
 
 
@@ -106,15 +210,136 @@
 
 - (void)updateShots
 {
-    // получим текущего пользователя
-    User* currentUser = [DatabaseManager sharedDatabaseManager].currentUser;
-    if (currentUser != nil)
+    // посмотрим, сколько у пользователя картинок
+    [shotsList release];
+    shotsList = [[NSMutableArray alloc] initWithArray:[sharedDataModel getShotsFavoritesOnly:favoritesOnlyMode titleSearch:searchBar.text]];
+    if (shotsList.count == 0)
     {
-        //TODO: - (void)updateShots
-        // посмтрим, сколько у пользователя картинок
-        currentUser.shots == nil;
+        shotsTable.hidden = true;
+        noShotsLabel.hidden = false;
     }
+    else
+    {
+        shotsTable.hidden = false;
+        noShotsLabel.hidden = true;
+        [shotsTable reloadData];
+    }
+    updateNeeded = false;
+}
 
+
+- (void)onRefreshButton:(id)sender
+{
+    [sharedDataModel refreshUserShots];
+}
+
+
+#pragma mark ----- UITableViewDataSource, UITableViewDelegate -----
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    // Return the number of sections.
+    return 1;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    // Return the number of rows in the section.
+    if (shotsList != nil)
+        return shotsList.count;
+    else
+        return 0;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *cellReuseIdentifier = @"ShotsCell";
+    ShotsCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier];
+    if (cell == nil)
+    {
+        [customCellNib instantiateWithOwner:self options:nil];
+        cell = cellEtalon;
+        self.cellEtalon = nil;
+    }
+    // настраиваем ячейку
+    NSNumber* shotID = [shotsList objectAtIndex:indexPath.row];
+    
+    Shot* shot = [sharedDataModel getShot:shotID];
+    UIImage* img = [sharedDataModel getImageForShot:shot];
+    
+    [cell fillWithImage:img
+                  title:shot.title
+              shotIndex:shotID
+               delegate:self];
+    cell.favorite = shot.favorite;
+    
+    return cell;
+}
+
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return NO;
+}
+
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return NO;
+}
+
+
+#pragma mark ----- ShotsCellDelegate -----
+
+
+- (void)changeFavoriteOfShot:(NSNumber *)shotID to:(bool)favFlag
+{
+    [sharedDataModel setFavorite:favFlag forShot:shotID];
+    // удалим картинку из списка, если она больше не любимая, а мы показываем только любимые
+    if (favoritesOnlyMode && !favFlag)
+    {
+        [shotsList removeObject:shotID];
+        [shotsTable reloadData];
+    }
+}
+
+
+- (void)showCommentForShot:(NSNumber *)shotIndex
+{
+    CommentsViewController* commentsVC = [[CommentsViewController alloc] initWithNibName:@"CommentsView"
+                                                                                  bundle:nil];
+    commentsVC.shotID = shotIndex;
+    [self.navigationController pushViewController:commentsVC animated:true];
+    [commentsVC autorelease];
+}
+
+
+#pragma mark ----- UISearchBarDelegate -----
+
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)aSearchBar
+{
+    // called when keyboard search button pressed
+    
+    // нужно обновить список картинок
+    [self updateShots];
+    
+    // и убрать клавиатуру
+    [aSearchBar resignFirstResponder];
+}
+
+
+- (void)searchBarCancelButtonClicked:(UISearchBar*)aSearchBar
+{
+    // called when cancel button pressed
+    
+    // опять обновить список и убрать клавиатуру
+    [self searchBarSearchButtonClicked:aSearchBar];
 }
 
 

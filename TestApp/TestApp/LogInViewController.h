@@ -16,6 +16,8 @@
     IBOutlet UIButton*		loginButton;
 }
 
+//TODO: clear text fields
+
 - (IBAction)onLogInButton:(id)sender;
 - (IBAction)onTextFieldValueChanged:(id)sender;
 

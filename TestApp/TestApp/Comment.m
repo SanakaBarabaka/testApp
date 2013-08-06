@@ -2,7 +2,7 @@
 //  Comment.m
 //  TestApp
 //
-//  Created by Александр Кириченко on 05.08.13.
+//  Created by Александр Кириченко on 06.08.13.
 //
 //
 
@@ -13,6 +13,7 @@
 @implementation Comment
 
 @dynamic text;
+@dynamic date;
 @dynamic shot;
 
 @end

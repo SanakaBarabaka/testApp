@@ -2,11 +2,12 @@
 //  User.m
 //  TestApp
 //
-//  Created by Александр Кириченко on 05.08.13.
+//  Created by Александр Кириченко on 06.08.13.
 //
 //
 
 #import "User.h"
+#import "Shot.h"
 
 
 @implementation User

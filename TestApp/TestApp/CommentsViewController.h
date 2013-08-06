@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CommentsViewController : UIViewController
+
+@interface CommentsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+{
+    IBOutlet UILabel*		noCommentsLabel;
+    IBOutlet UITableView*	commentsTable;
+}
+
+@property (nonatomic, retain) NSNumber*	shotID;
 
 @end

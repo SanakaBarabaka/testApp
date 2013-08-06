@@ -9,9 +9,17 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ShotsViewController : UIViewController
+@class ShotsCell;
+
+
+@interface ShotsViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDataSource>
 {
-    IBOutlet UILabel*	noShotsLabel;
+    IBOutlet UILabel*		noShotsLabel;
+    IBOutlet UITableView*	shotsTable;
+    IBOutlet UISearchBar*	searchBar;
 }
+
+@property (nonatomic, assign) bool					favoritesOnlyMode;
+@property (nonatomic, retain) IBOutlet ShotsCell*	cellEtalon;
 
 @end

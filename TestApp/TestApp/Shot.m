@@ -2,11 +2,12 @@
 //  Shot.m
 //  TestApp
 //
-//  Created by Александр Кириченко on 05.08.13.
+//  Created by Александр Кириченко on 06.08.13.
 //
 //
 
 #import "Shot.h"
+#import "Comment.h"
 #import "User.h"
 
 
@@ -14,7 +15,11 @@
 
 @dynamic data;
 @dynamic favorite;
-@dynamic user;
+@dynamic date;
+@dynamic dribble_id;
+@dynamic title;
+@dynamic image_url;
 @dynamic comments;
+@dynamic user;
 
 @end
