@@ -30,12 +30,15 @@
     bool	shown;
     
     UIBarButtonItem* refreshButton;
+    
+    bool	isIPad;
 }
 
 - (void)updateShots;
 - (void)onRefreshButton:(id)sender;
 - (void)onImageDownloaded:(NSNotification*)notification;
 - (void)onShotsUpdated:(NSNotification*)notification;
+- (void)onFavoritesUpdated:(NSNotification*)notification;
 - (void)onUserChanged:(NSNotification*)notification;
 
 @end
@@ -95,7 +98,11 @@
         self.navigationItem.rightBarButtonItem = refreshButton;
     
     // подгрузим ячейку
-    customCellNib = [[UINib nibWithNibName:@"ShotsCellView" bundle:nil] retain];
+    isIPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
+    if (isIPad)
+        customCellNib = [[UINib nibWithNibName:@"ShotsCellView-iPad" bundle:nil] retain];
+    else
+        customCellNib = [[UINib nibWithNibName:@"ShotsCellView" bundle:nil] retain];
     
     // покажем надпись
     noShotsLabel.hidden = false;
@@ -132,6 +139,11 @@
         self.navigationItem.title = @"Favorites";
         
         self.navigationItem.rightBarButtonItem = nil;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onFavoritesUpdated:)
+                                                     name:NOTIFICATION_DM_FavoritesChanged
+                                                   object:nil];
     }
     else
     {
@@ -141,6 +153,10 @@
         self.navigationItem.title = @"Shots";
         
         self.navigationItem.rightBarButtonItem = refreshButton;
+        
+        [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                        name:NOTIFICATION_DM_FavoritesChanged
+                                                      object:nil];
     }
     updateNeeded = true;
 }
@@ -187,6 +203,12 @@
         [shotsTable reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:cellIndex inSection:0]]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
     }
+}
+
+
+- (void)onFavoritesUpdated:(NSNotification*)notification
+{
+    [self onShotsUpdated:notification];
 }
 
 
@@ -291,6 +313,15 @@
 {
     // Return NO if you do not want the item to be re-orderable.
     return NO;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (isIPad)
+        return 400.0f;
+    else
+        return 320.0f;
 }
 
 

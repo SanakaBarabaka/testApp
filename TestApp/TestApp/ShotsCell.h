@@ -26,6 +26,7 @@
     IBOutlet UILabel*					titleLabel;
     IBOutlet UIActivityIndicatorView*	spinner;
     IBOutlet UIButton*					favoriteButton;
+    IBOutlet UIButton*					commentsButton;
 }
 
 - (IBAction)onFavoriteButton:(id)sender;

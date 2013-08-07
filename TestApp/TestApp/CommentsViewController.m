@@ -19,6 +19,8 @@
     
     // преобразователь дат
     NSDateFormatter *dateFormatter;
+    
+    UILabel* testLabel;
 }
 
 - (void)updateComments;
@@ -49,6 +51,7 @@
 
 - (void)dealloc
 {
+    [testLabel release];
     [comments release];
     [commentsTable release];
     [noCommentsLabel release];
@@ -65,6 +68,8 @@
     
     dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    // покажем надпись
     noCommentsLabel.hidden = false;
     commentsTable.hidden = true;
     commentsTable.editing = true;
@@ -88,6 +93,11 @@
                                                  name:NOTIFICATION_DM_CommentsUpdated
                                                object:nil];
     
+    // контрол для подсчета нужной высоты ячейки в таблице
+    testLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, commentsTable.frame.size.width - 40, 10)];
+    testLabel.numberOfLines = 0;
+    testLabel.font = [UIFont systemFontOfSize:12.0f];
+    testLabel.lineBreakMode = NSLineBreakByWordWrapping;
 }
 
 
@@ -182,19 +192,32 @@
 }
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Comment* comment = [comments objectAtIndex:indexPath.row];
+    
+    testLabel.text = comment.text;
+    [testLabel sizeToFit];
+    
+    return MAX(50.0f, testLabel.frame.size.height + 20.0f);
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString* cellReuseIdentifier = @"CommentsCell";
     UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:cellReuseIdentifier];
     if (cell == nil)
+    {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellReuseIdentifier] autorelease];
         
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+        cell.textLabel.numberOfLines = 0;
+        cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
+    }
+    
     // настраиваем ячейку
-    Comment* comment = [comments objectAtIndex:indexPath.row];
-
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.textLabel.numberOfLines = 3;
-    cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
+    Comment* comment = [comments objectAtIndex:indexPath.row];    
     cell.textLabel.text = comment.text;
     cell.detailTextLabel.text = [dateFormatter stringFromDate:comment.date];
     

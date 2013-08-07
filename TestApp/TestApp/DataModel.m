@@ -146,16 +146,14 @@ static	DataModel* _instance = NULL;
 
 - (void)setFavorite:(bool)favFlag forShot:(NSNumber*)shotID
 {
-    if (favFlag)
-    {
-        UIImage* img = [imagesCache objectForKey:shotID];
-        if (img != nil)
-        {
-            [sharedDatabaseManager setImageData:UIImagePNGRepresentation(img) forShotWithDribbleID:shotID favorite:favFlag];
-            return;
-        }
-    }
-    [sharedDatabaseManager setFavorite:favFlag forShotWithDribbleID:shotID];
+    UIImage* img = [imagesCache objectForKey:shotID];
+    if (favFlag && img != nil)
+        [sharedDatabaseManager setImageData:UIImagePNGRepresentation(img) forShotWithDribbleID:shotID favorite:favFlag];
+    else
+        [sharedDatabaseManager setFavorite:favFlag forShotWithDribbleID:shotID];
+    
+    // сообщим, что кодичество любимых изменилось
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DM_FavoritesChanged object:nil];
 }
 
 

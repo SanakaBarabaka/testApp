@@ -18,6 +18,7 @@
 		E805027417B100D40024FF81 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E805027317B100D40024FF81 /* User.m */; };
 		E805028317B107F30024FF81 /* Shot.m in Sources */ = {isa = PBXBuildFile; fileRef = E805028217B107F00024FF81 /* Shot.m */; };
 		E805028617B108080024FF81 /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = E805028517B108080024FF81 /* Comment.m */; };
+		E80B30E117B239E1007E5790 /* UILabel+MultiLineAutoSize.m in Sources */ = {isa = PBXBuildFile; fileRef = E80B30E017B239E1007E5790 /* UILabel+MultiLineAutoSize.m */; };
 		E810663D17AF926500E706A1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E810663C17AF926500E706A1 /* UIKit.framework */; };
 		E810663F17AF926500E706A1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E810663E17AF926500E706A1 /* Foundation.framework */; };
 		E810664117AF926500E706A1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E810664017AF926500E706A1 /* CoreGraphics.framework */; };
@@ -30,7 +31,6 @@
 		E810665517AF926600E706A1 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E810665417AF926500E706A1 /* Default-568h@2x.png */; };
 		E810665817AF926600E706A1 /* TestApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E810665617AF926600E706A1 /* TestApp.xcdatamodeld */; };
 		E810666A17AF986A00E706A1 /* LogInView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E810666917AF986A00E706A1 /* LogInView.xib */; };
-		E810666C17AF991E00E706A1 /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E810666B17AF991E00E706A1 /* MainView.xib */; };
 		E810666F17AF99EC00E706A1 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E810666E17AF99EC00E706A1 /* LogInViewController.m */; };
 		E810667317AFB58800E706A1 /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E810667217AFB58800E706A1 /* DatabaseManager.m */; };
 		E810667617AFC8A700E706A1 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E810667517AFC8A700E706A1 /* SettingViewController.m */; };
@@ -43,6 +43,7 @@
 		E81066D517AFEBF600E706A1 /* DataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E81066D417AFEBF600E706A1 /* DataModel.m */; };
 		E81066D917AFED3600E706A1 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E81066D717AFED3500E706A1 /* CommentsViewController.m */; };
 		E81066DA17AFED3600E706A1 /* CommentsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E81066D817AFED3600E706A1 /* CommentsView.xib */; };
+		E8A04E9317B151560070CD2A /* ShotsCellView-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8A04E9217B151560070CD2A /* ShotsCellView-iPad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,8 @@
 		E805028217B107F00024FF81 /* Shot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Shot.m; sourceTree = "<group>"; };
 		E805028417B108080024FF81 /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
 		E805028517B108080024FF81 /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
+		E80B30DF17B239E1007E5790 /* UILabel+MultiLineAutoSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+MultiLineAutoSize.h"; sourceTree = "<group>"; };
+		E80B30E017B239E1007E5790 /* UILabel+MultiLineAutoSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+MultiLineAutoSize.m"; sourceTree = "<group>"; };
 		E810663917AF926500E706A1 /* TestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E810663C17AF926500E706A1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E810663E17AF926500E706A1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -81,7 +84,6 @@
 		E810665417AF926500E706A1 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E810665717AF926600E706A1 /* TestApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TestApp.xcdatamodel; sourceTree = "<group>"; };
 		E810666917AF986A00E706A1 /* LogInView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LogInView.xib; sourceTree = "<group>"; };
-		E810666B17AF991E00E706A1 /* MainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainView.xib; sourceTree = "<group>"; };
 		E810666D17AF99EC00E706A1 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		E810666E17AF99EC00E706A1 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		E810667117AFB58800E706A1 /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		E81066D617AFED3500E706A1 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
 		E81066D717AFED3500E706A1 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		E81066D817AFED3600E706A1 /* CommentsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentsView.xib; sourceTree = "<group>"; };
+		E8A04E9217B151560070CD2A /* ShotsCellView-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "ShotsCellView-iPad.xib"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,7 +189,6 @@
 		E810665E17AF927F00E706A1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				E810666B17AF991E00E706A1 /* MainView.xib */,
 				E810667717AFC8C800E706A1 /* MainViewController.h */,
 				E810667817AFC8C800E706A1 /* MainViewController.m */,
 				E810668617AFD2E700E706A1 /* LogIn */,
@@ -251,6 +253,7 @@
 				E805026317B0E0640024FF81 /* ShotsCell.h */,
 				E805026417B0E0640024FF81 /* ShotsCell.m */,
 				E805026517B0E0640024FF81 /* ShotsCellView.xib */,
+				E8A04E9217B151560070CD2A /* ShotsCellView-iPad.xib */,
 				E805026817B0E9E30024FF81 /* star-filled.png */,
 				E805026917B0E9E30024FF81 /* star-hollow.png */,
 			);
@@ -263,6 +266,8 @@
 				E81066D617AFED3500E706A1 /* CommentsViewController.h */,
 				E81066D717AFED3500E706A1 /* CommentsViewController.m */,
 				E81066D817AFED3600E706A1 /* CommentsView.xib */,
+				E80B30DF17B239E1007E5790 /* UILabel+MultiLineAutoSize.h */,
+				E80B30E017B239E1007E5790 /* UILabel+MultiLineAutoSize.m */,
 			);
 			name = Comments;
 			sourceTree = "<group>";
@@ -323,7 +328,6 @@
 				E810665317AF926500E706A1 /* Default@2x.png in Resources */,
 				E810665517AF926600E706A1 /* Default-568h@2x.png in Resources */,
 				E810666A17AF986A00E706A1 /* LogInView.xib in Resources */,
-				E810666C17AF991E00E706A1 /* MainView.xib in Resources */,
 				E810667B17AFCA5500E706A1 /* SettingView.xib in Resources */,
 				E810668517AFCA7A00E706A1 /* ShotsView.xib in Resources */,
 				E81066CE17AFD77600E706A1 /* box.png in Resources */,
@@ -332,6 +336,7 @@
 				E805026717B0E0640024FF81 /* ShotsCellView.xib in Resources */,
 				E805026A17B0E9E30024FF81 /* star-filled.png in Resources */,
 				E805026B17B0E9E30024FF81 /* star-hollow.png in Resources */,
+				E8A04E9317B151560070CD2A /* ShotsCellView-iPad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +381,7 @@
 				E805027417B100D40024FF81 /* User.m in Sources */,
 				E805028317B107F30024FF81 /* Shot.m in Sources */,
 				E805028617B108080024FF81 /* Comment.m in Sources */,
+				E80B30E117B239E1007E5790 /* UILabel+MultiLineAutoSize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,8 +461,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestApp/TestApp-Prefix.pch";
 				INFOPLIST_FILE = "TestApp/TestApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -467,8 +474,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TestApp/TestApp-Prefix.pch";
 				INFOPLIST_FILE = "TestApp/TestApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -24,6 +24,8 @@
     
     //--graphics--
     float			bottomPositionY;
+    
+    bool			isiPad;
 }
 
 @end
@@ -66,6 +68,8 @@
     
     bottomPositionY = self.view.frame.origin.y;
     loginButton.enabled = false;
+    
+    isiPad = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
 }
 
 
@@ -128,6 +132,9 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    if (isiPad)
+        // тут хватает места - никуда не двигаем
+        return;
     [UIView animateWithDuration:SLIDE_INTERVAL
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut
@@ -142,6 +149,9 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    if (isiPad)
+        // и не возвращаемся обратно
+        return;
     [UIView animateWithDuration:SLIDE_INTERVAL
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseInOut

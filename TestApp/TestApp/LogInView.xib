@@ -39,7 +39,7 @@
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUILabel" id="852165081">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{20, 85}, {280, 39}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -72,7 +72,7 @@
 					</object>
 					<object class="IBUIButton" id="57337028">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{20, 238}, {280, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -108,7 +108,7 @@
 					</object>
 					<object class="IBUITextField" id="206568712">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{20, 132}, {280, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -118,7 +118,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUIText">admin</string>
+						<string key="IBUIText"/>
 						<int key="IBUIBorderStyle">3</int>
 						<string key="IBUIPlaceholder">login</string>
 						<object class="NSColor" key="IBUITextColor">
@@ -147,7 +147,7 @@
 					</object>
 					<object class="IBUITextField" id="1054587220">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">293</int>
 						<string key="NSFrame">{{20, 170}, {280, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -157,7 +157,7 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUIText">adminPass</string>
+						<string key="IBUIText"/>
 						<int key="IBUIBorderStyle">3</int>
 						<string key="IBUIPlaceholder">password</string>
 						<object class="NSColor" key="IBUITextColor">
@@ -263,9 +263,9 @@
 						<string key="label">onTextFieldValueChanged:</string>
 						<reference key="source" ref="206568712"/>
 						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">13</int>
+						<int key="IBEventType">18</int>
 					</object>
-					<int key="connectionID">30</int>
+					<int key="connectionID">33</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -274,15 +274,6 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">27</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">onTextFieldValueChanged:</string>
-						<reference key="source" ref="1054587220"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">13</int>
-					</object>
-					<int key="connectionID">31</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -306,10 +297,10 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="206568712"/>
 							<reference ref="57337028"/>
 							<reference ref="1054587220"/>
 							<reference ref="852165081"/>
+							<reference ref="206568712"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -363,7 +354,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">32</int>
+			<int key="maxID">33</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">

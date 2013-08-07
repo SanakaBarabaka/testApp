@@ -12,6 +12,7 @@
 #define NOTIFICATION_DM_ImageDownloaded	@"img_downloaded"
 #define NOTIFICATION_DM_ShotsUpdated	@"shots_updated"
 #define NOTIFICATION_DM_CommentsUpdated	@"comments_updated"
+#define NOTIFICATION_DM_FavoritesChanged	@"favorites_changed"
 
 
 @class Shot;

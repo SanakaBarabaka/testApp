@@ -17,6 +17,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[ShotsViewController viewDidLoad]:ShotsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "shotsTable.frame.size.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "-[LogInViewController onTextFieldValueChanged:]:LogInViewController.m">
          <PersistentStrings>
             <PersistentString

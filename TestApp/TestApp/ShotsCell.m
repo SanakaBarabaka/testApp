@@ -37,9 +37,29 @@
             shotIndex:(NSNumber*)aShotIndex
              delegate:(id<ShotsCellDelegate>)aDelegate
 {
-    shotImage.image = aImage;
-    shotImage.hidden = aImage == nil;
-    spinner.hidden = aImage != nil;
+    // изменим отношение сторон отображения, чтобы картинка уменьшалась одинаково по обоим осям
+    if (aImage != nil)
+    {
+        float scaledWidth = shotImage.frame.size.width;
+        float scaledHeight = shotImage.frame.size.height;
+        if (aImage.size.height < aImage.size.width)
+            scaledHeight = shotImage.frame.size.height * aImage.size.height / aImage.size.width;
+        else
+            scaledWidth = shotImage.frame.size.width * aImage.size.height / aImage.size.width;
+        shotImage.frame = CGRectMake((self.frame.size.width - scaledWidth) / 2.0f,
+                                     (self.frame.size.height - scaledHeight) / 2.0f,
+                                     scaledWidth,
+                                     scaledHeight);
+        commentsButton.frame = shotImage.frame;
+        // картинка
+        shotImage.hidden = false;
+        shotImage.image = aImage;
+        // крутилка
+        [spinner stopAnimating];
+    }
+    else
+        [spinner startAnimating];
+    // заполним ячейку
     titleLabel.text = title;
     shotIndex = [aShotIndex retain];
     delegate = aDelegate;

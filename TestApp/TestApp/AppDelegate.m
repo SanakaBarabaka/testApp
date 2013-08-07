@@ -11,15 +11,6 @@
 #import "MainViewController.h"
 
 
-
-//TODO: tasks       (clean)
-/*
- 
- - Проект под iPhone/iPad одна ориентация
- 
- */
-
-
 @implementation AppDelegate
 
 - (void)dealloc
@@ -42,7 +33,6 @@
     
     // загрузим главный контроллер
     MainViewController* mainVC = [[MainViewController alloc] init];
-    //TODO: make universal app - смотри задание
     self.window.rootViewController = mainVC;
     [mainVC autorelease];
     [self.window makeKeyAndVisible];

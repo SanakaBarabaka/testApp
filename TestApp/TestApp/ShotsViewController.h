@@ -12,7 +12,7 @@
 @class ShotsCell;
 
 
-@interface ShotsViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDataSource>
+@interface ShotsViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 {
     IBOutlet UILabel*		noShotsLabel;
     IBOutlet UITableView*	shotsTable;
